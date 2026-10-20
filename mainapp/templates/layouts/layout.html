@@ -23,25 +23,27 @@
         </div>
     </header>
     <nav>
-        <ul>
+    <ul>
+        <li>
+            <a href="{% url 'index' %}">Inicio</a>
+        </li>
+        {% for page in pages %}
             <li>
-                <a href="{% url 'index' %}">Inicio</a>
+                <a href="{% url 'page' slug=page.slug %}">{{ page.title }}</a>
             </li>
-            <li>
-                <a href="{% url 'about' %}">Sobre Nosotros</a>
-            </li>
-        </ul>
-    </nav>
-    <div id="content">
-        <div class="box">
-            <!--<h2 class="title">"{title}"</h2>-->
-            {% block content %}
-                <strong>Contenido del bloque original!!</strong>
-            {% endblock %}
-        </div>
+        {% endfor %}
+    </ul>
+</nav>
+
+<div id="content">
+    <div class="box">
+        {% block content %}
+            <strong>Contenido por defecto del bloque</strong>
+        {% endblock %}
     </div>
+</div>
     <footer>
-        Programación con Django - ADSO 2023 &copy; Instructor Moisés García - {% now "d/m/Y h:m
+        Programación con Django - ADSO 2023 &copy; Instructor Moisés García - {% now "d/m/Y h:m" %}
     </footer>
 </body>
 </html>

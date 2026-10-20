@@ -1,0 +1,11 @@
+{% extends 'layouts/layout.html' %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block content %}
+<div class="box">
+    <h1>{{ page.title }}</h1>
+    <span>{{ page.created_at|date:"d \d\e F \d\e Y \a \l\a\s H:i" }}</span>
+    <p>{{ page.content|safe }}</p>
+</div>
+{% endblock %}
