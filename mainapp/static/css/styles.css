@@ -157,6 +157,18 @@ nav ul li a:hover{
     margin-top: 5px;
 }
 
+/*estilo de fecha*/
+.date{
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    color: gray;
+}
+
+.content{
+    line-height: 25px;
+}
+
 /*Estilos para maquetar la imagen*/
 .article-item{
     margin-bottom: 20px;

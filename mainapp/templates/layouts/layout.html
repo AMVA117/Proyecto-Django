@@ -18,7 +18,7 @@
     <header>
         <div id="logotipo"> <!--se usa id porque sera algo que estara una vez en la pagina-->
             <!--Logo Django-->
-            <img src="{% static 'images/logo.png' %}" />
+            <img src="{% static 'images/icono.png' %}" />
             <h1>Proyecto con Django </h1>
         </div>
     </header>
@@ -29,7 +29,7 @@
         </li>
         {% for page in pages %}
             <li>
-                <a href="{% url 'page' slug=page.slug %}">{{ page.title }}</a>
+                <a href="{% url 'page' page.slug %}">{{ page.title }}</a>
             </li>
         {% endfor %}
     </ul>

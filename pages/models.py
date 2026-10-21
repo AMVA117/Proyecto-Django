@@ -1,21 +1,19 @@
 from django.db import models
+from ckeditor.fields import RichTextField
 
-# Modelo de pagina edfinido
-# Create your models here.
-class Page(models.Model): #Heredamos de models
-    #definimos los campos del modelo y aplicamos verbose_name para traducir los campos en el panel de administración
-    title = models.CharField(max_length=50, verbose_name="Título")
-    content = models.TextField(verbose_name="Contenido")
-    slug = models.CharField(unique=True, max_length=150, verbose_name="URL amigable") #url que va a tener la pagina
-    #unique para que se unico
+class Page(models.Model):
+    title = models.CharField(max_length=150, verbose_name="Título")
+    content = RichTextField(verbose_name="Contenido")
+    slug = models.CharField(unique=True, max_length=150, verbose_name="URL amigable")
     visible = models.BooleanField(verbose_name="¿Visible?")
-    #auto_now_add= True para que adicione la fecha de cuando se crea
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Creación:")
-    updated_at = models.DateTimeField(auto_now_add=True, verbose_name="Actualización:")
+    order = models.IntegerField(default=0, verbose_name="Orden") # <-- Agrega este campo
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Creado el")
+    updated_at = models.DateTimeField(auto_now=True, verbose_name="Actualizado el")
 
     class Meta:
         verbose_name = "Página"
         verbose_name_plural = "Páginas"
-    #Metodo str para que cuando se muestre el objeto imprima un string
+        ordering = ['order', 'title'] # <-- Esto ordena por el campo orden por defecto
+
     def __str__(self):
         return self.title
