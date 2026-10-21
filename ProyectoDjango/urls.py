@@ -17,6 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from ProyectoDjango import settings
+
 
 urlpatterns = [
     path('admin/', admin.site.urls), #panel de administración por defecto
@@ -24,3 +26,7 @@ urlpatterns = [
     path('pagina/',include('pages.urls')), #incluimos las urls de la app pages
     path('',include('blog.urls')),
 ]
+
+if settings.DEBUG:
+    from django.conf.urls.static import static
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
