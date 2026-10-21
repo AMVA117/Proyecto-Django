@@ -18,7 +18,7 @@ class Category(models.Model):
 class Article(models.Model):
     title = models.CharField(max_length=150, verbose_name='Título')
     content = RichTextField(verbose_name='Contenido')
-    image = models.ImageField(default='null', verbose_name='Imagen')
+    image = models.ImageField(default='null', verbose_name='Imagen', upload_to="articles")
     public = models.BooleanField(verbose_name='¿Publicado?')
     user = models.ForeignKey(User, verbose_name='Usuario', on_delete=models.CASCADE, null=True, blank=True)
     categories = models.ManyToManyField(Category, verbose_name='Categorías', blank=True)
