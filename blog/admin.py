@@ -3,14 +3,20 @@ from .models import Category, Article
 
 class CategoryAdmin(admin.ModelAdmin):
     readonly_fields = ('created_at',)
+    list_display = ('name', 'created_at')
+    search_fields = ('name', 'created_at')
 
 class ArticleAdmin(admin.ModelAdmin):
     readonly_fields = ('user', 'created_at', 'updated_at')
+    search_fields = ('title', 'content', 'user__username', 'categories__name')  # <-- Doble guion bajo aquí
+    list_display = ('title', 'user', 'public', 'created_at')
+    list_filter = ('public', 'user__username', 'categories__name')            # <-- Y doble guion bajo aquí
 
     def save_model(self, request, obj, form, change):
         if not obj.user_id:
-            obj.user = request.user
-        super().save_model(request, obj, form, change)
+            obj.user_id = request.user.id
+        obj.save()
 
+# Register your models here.
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Article, ArticleAdmin)
