@@ -27,16 +27,32 @@
         <li>
             <a href="{% url 'index' %}">Inicio</a>
         </li>
+        <li>
+            <a href="{% url 'list_articles' %}">Categorias</a>
+            <ul>
+                {% for category in categories %}
+                <li>
+                    <a href="{% url 'category' category.0 %}">{{ category.1 }}</a>
+                </li>
+                {% endfor %}
+            </ul> 
+        </li>
         {% for page in pages %}
             <li>
                 <a href="{% url 'page' page.slug %}">{{ page.title }}</a>
             </li>
         {% endfor %}
+
+        
     </ul>
 </nav>
 
 <div id="content">
     <div class="box">
+        <h2 class="title">
+            {% block title_content %}
+            <!-- Titulo de cada pagina en concreto-->
+            {% endblock %}
         {% block content %}
             <strong>Contenido por defecto del bloque</strong>
         {% endblock %}
