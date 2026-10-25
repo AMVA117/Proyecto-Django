@@ -3,7 +3,24 @@
 {% block title %} {{ title }} {% endblock %}
 
 {% block content %}
-<div class="box">
-    <h1 class="title">{{ title }}</h1>
-</div>
+
+    <h1>{{ title }}</h1>
+    <hr>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% if request.user.email %}
+
+    <h2>Bienvenido, {{ request.user.first_name }} {{ request.user.last_name }}</h2>
+    <p> {{ request.user.email }}</p>
+    
+    {% else %}
+    <h2>Identificate para ver mas informacion</h2>
+
+    {% endif %}
 {% endblock %}
