@@ -1,11 +1,19 @@
+<!-- Hereda toda la estructura base de la plantilla principal (layouts/layout.html) -->
 {% extends 'layouts/layout.html' %}
 
+<!-- Bloque dinámico para el título de la pestaña del navegador, utilizando la variable 'title' pasada desde la vista -->
 {% block title %} {{ title }} {% endblock %}
 
+<!-- Bloque principal de contenido que será incrustado dentro de la plantilla base -->
 {% block content %}
 <div class="box">
+    <!-- Muestra el título del artículo o página utilizando la notación de punto (page.title) -->
     <h1 class="title">{{ page.title }}</h1>
+    
+    <!-- Muestra la fecha de creación formateada (ej. 25 de octubre de 2026 a las 15:30) utilizando el filtro 'date' de Django -->
     <span class="date">{{ page.created_at|date:"d \d\e F \d\e Y \a \l\a\s H:i" }}</span>
+    
+    <!-- Muestra el contenido de la página. El filtro '|safe' le indica a Django que confíe en el contenido HTML (por ejemplo, texto enriquecido de CKEditor) y lo renderice como HTML en lugar de mostrar las etiquetas en texto plano -->
     <p class="content">{{ page.content|safe }}</p>
 </div>
 {% endblock %}

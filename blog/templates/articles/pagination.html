@@ -1,19 +1,30 @@
+{# 1. Contenedor principal: Div con clase 'pagination' para aplicar estilos CSS a toda la barra de navegación #}
 <div class="pagination">
+
+{# 2. Condicional IF: Verifica si existe una página anterior a la actual utilizando el método .has_previous de la Paginación de Django #}
 {% if articles.has_previous %}
+    {# 3. Enlace directo a la primera página de la lista (parámetro GET ?page=1) #}
     <a href="?page=1">&laquo; Primero</a>
+    
+    {# 4. Enlace dinámico a la página inmediatamente anterior usando .previous_page_number #}
     <a href="?page={{ articles.previous_page_number }}">
         Anterior
     </a>
 {% endif %}
 
+    {# 5. Indicador de estado actual: Muestra el número de página en el que se encuentra el usuario y el total de páginas usando .number y .paginator.num_pages #}
     <span class="actual">
         Página {{ articles.number }} de {{ articles.paginator.num_pages }}
     </span>
 
+    {# 6. Condicional IF: Verifica si existe una página siguiente utilizando el método .has_next #}
     {% if articles.has_next %}
+    {# 7. Enlace dinámico a la página siguiente usando .next_page_number #}
     <a href="?page={{ articles.next_page_number }}">
         Siguiente
     </a>
+    
+    {# 8. Enlace directo a la última página disponible utilizando el total de páginas del paginador #}
     <a href="?page={{ articles.paginator.num_pages }}">
         Último &raquo;
     </a>

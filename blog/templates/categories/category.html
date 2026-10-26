@@ -1,10 +1,21 @@
+{# 1. Herencia de plantillas: Extiende la estructura base general ('layouts/layout.html') para mantener el diseño visual, barras y menús del sitio #}
 {% extends 'layouts/layout.html' %}
 
+{# 2. Bloque de título: Define de forma dinámica el título de la pestaña del navegador utilizando el nombre de la categoría actual #}
 {% block title %} {{ category.name }} {% endblock %}
 
+{# 3. Bloque de contenido principal: Zona donde se inyecta el cuerpo específico de esta vista dentro de la plantilla base #}
+{# (Esta plantilla corresponde típicamente a la vista de detalle o listado por categoría, ej. category.html) #}
 {% block content %}
+
+{# 4. Renderiza un encabezado h1 visible en la página con el nombre de la categoría #}
 <h1 class="title">{{ category.name }}</h1>
+
+{# 5. Muestra la descripción detallada de la categoría enviada desde la base de datos #}
 <p>{{ category.description }}</p>
 
+{# 6. Etiqueta INCLUDE: Inserta y renderiza la estructura repetitiva de los artículos ('articles/article.html') #}
+{# Esto mostrará todos los artículos que pertenecen a esta categoría específica utilizando el bucle interno del archivo incluido #}
 {% include 'articles/article.html' %}
+
 {% endblock %}

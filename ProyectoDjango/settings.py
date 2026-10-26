@@ -15,84 +15,86 @@ https://docs.djangoproject.com/en/6.1/ref/settings/
 from pathlib import Path
 import os
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+# Construye rutas absolutas dentro del proyecto combinando directorios, por ejemplo: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
+# Configuración rápida de desarrollo - no apta para producción
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
+# ¡ADVERTENCIA DE SEGURIDAD: mantén en secreto la clave secreta utilizada en producción!
 SECRET_KEY = 'django-insecure-sxo8*olcgm_!=%lk#mmh$i$q!q48(5qxqyo20z83v_wr-uy!e^'
 
-# SECURITY WARNING: don't run with debug turned on in production!
+# ¡ADVERTENCIA DE SEGURIDAD: no ejecutes con el modo DEBUG activado en producción! (Muestra errores detallados)
 DEBUG = True
 
+# Lista de hosts/dominios permitidos para acceder a la aplicación
 ALLOWED_HOSTS = []
 
 
-# Application definition
-
+# Definición de aplicaciones instaladas y habilitadas en el proyecto
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'ckeditor',
-    'mainapp',
-    'pages.apps.PagesConfig',
-    'blog.apps.BlogConfig',
+    'django.contrib.admin',      # Panel de administración de Django
+    'django.contrib.auth',       # Sistema de autenticación y modelos de usuario
+    'django.contrib.contenttypes', # Sistema de tipos de contenido genéricos
+    'django.contrib.sessions',   # Gestión de sesiones de usuario
+    'django.contrib.messages',   # Sistema de mensajes flash (notificaciones)
+    'django.contrib.staticfiles', # Gestión de archivos estáticos (CSS, JS, imágenes)
+    'ckeditor',                  # Paquete externo de editor de texto enriquecido
+    'mainapp',                   # Aplicación principal para vistas y autenticación
+    'pages.apps.PagesConfig',    # Aplicación de páginas estáticas con configuración personalizada
+    'blog.apps.BlogConfig',      # Aplicación del blog con configuración personalizada
 ]
 
+# Lista de middlewares (capas que procesan las peticiones y respuestas HTTP globalmente)
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware', # Protección contra ataques CSRF
+    'django.contrib.auth.middleware.AuthenticationMiddleware', # Asocia usuarios a las peticiones mediante sesiones
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# Ruta raíz donde se encuentra la configuración principal de las URLs del proyecto
 ROOT_URLCONF = 'ProyectoDjango.urls'
 
+# Configuración del motor de plantillas (Templates)
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [],
-        'APP_DIRS': True,
+        'APP_DIRS': True, # Permite buscar carpetas 'templates' dentro de cada aplicación instalada
         'OPTIONS': {
-            'context_processors': [
+            'context_processors': [ # Procesadores de contexto globales para las plantillas
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'pages.context_processors.get_pages',
-                'blog.procesos.get_categories',
+                'pages.context_processors.get_pages',       # Procesador personalizado para inyectar páginas globales
+                'blog.procesos.get_categories',     # Procesador personalizado para inyectar categorías del blog globales
             ],
         },
     },
 ]
 
+# Configuración de la aplicación WSGI para despliegue síncrono tradicional
 WSGI_APPLICATION = 'ProyectoDjango.wsgi.application'
 
 
-# Database
+# Base de datos
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.sqlite3', # Motor de base de datos utilizado (SQLite)
+        'NAME': BASE_DIR / 'db.sqlite3',         # Ruta del archivo físico de la base de datos
     }
 }
 
 
-# Password validation
-# https://docs.djangoproject.com/en/6.1/ref/settings/#auth-password-validators
-
+# Validadores de contraseñas para asegurar que cumplan con estándares de seguridad
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -109,32 +111,31 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
-# https://docs.djangoproject.com/en/6.1/topics/i18n/
+# Internacionalización y localización
+LANGUAGE_CODE = 'es-es' # Idioma por defecto de la aplicación (Español de España)
 
-LANGUAGE_CODE = 'es-es'
-
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'UTC'       # Zona horaria del proyecto
 
 USE_I18N = True
 
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
+# Archivos estáticos (CSS, JavaScript, Imágenes)
 # https://docs.djangoproject.com/en/6.1/howto/static-files/
 
 STATIC_URL = 'static/'
 
-# Configuración para que Django encuentre la carpeta static
+# Configuración adicional para que Django encuentre carpetas de archivos estáticos propios
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'mainapp/static'),
 ]
 
-# Email
+# Configuración de correo electrónico
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
 
 
+# Configuración para Archivos Multimedia subidos por los usuarios (imágenes, documentos, etc.)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
@@ -146,10 +147,11 @@ MAILERS = {
 }
 
 
-
+# Configuración detallada para personalizar el editor de texto enriquecido CKEditor
 CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': 'Custom',
+        # Define exactamente qué botones y herramientas estarán disponibles en la barra del editor
         'toolbar_Custom': [
             ['Bold', 'Italic', 'Underline'],
             ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],

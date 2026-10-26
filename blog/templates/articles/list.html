@@ -1,10 +1,21 @@
+{# 1. Herencia de plantillas: Extiende la estructura base global ('layouts/layout.html') #}
 {% extends 'layouts/layout.html' %}
 
+{# 2. Bloque de título: Define dinámicamente el título de la página del navegador usando la variable pasada desde la vista ('title') #}
 {% block title %} {{ title }} {% endblock %}
 
+{# 3. Bloque de contenido principal: Inyecta el cuerpo de la página en la plantilla base #}
 {% block content %}
+
+{# 4. Muestra el título principal (h1) visible en la interfaz utilizando la misma variable de contexto 'title' #}
 <h1 class="title">{{ title }}</h1>
 
+{# 5. Etiqueta INCLUDE: Reutiliza fragmentos de código externos. 
+   Aquí importa la estructura de un artículo individual ('articles/article.html') para renderizar cada post en bucle o lista. #}
 {% include 'articles/article.html' %}
+
+{# 6. Etiqueta INCLUDE: Importa la plantilla de paginación ('articles/pagination.html') 
+   para mostrar los botones de navegación entre páginas (ej. Siguiente, Anterior, Números de página). #}
 {% include 'articles/pagination.html' %}
+
 {% endblock %}

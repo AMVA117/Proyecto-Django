@@ -1,16 +1,29 @@
+{# 1. Herencia de plantillas: Extiende la estructura base global ('layouts/layout.html') para mantener el diseño común del sitio #}
 {% extends 'layouts/layout.html' %}
+
+{# 2. Bloque de título: Define dinámicamente el título de la pestaña del navegador usando el título del artículo actual #}
 {% block title %}{{article.title}} {% endblock %}
 
+{# 3. Bloque de contenido principal: Inyecta todo este contenido dentro del espacio reservado en la plantilla principal #}
 {% block content %}
 
-{% if article.image != 'null' and article.image.url|length >= 1 %}
+    {# 4. Condicional IF: Verifica que el artículo tenga una imagen asociada válida (diferente de 'null' y con una ruta de longitud mayor o igual a 1) #}
+    {% if article.image != 'null' and article.image.url|length >= 1 %}
         <div class="image">
+            {# 5. Renderiza la imagen principal del artículo utilizando la URL generada por el campo ImageField #}
             <img src="{{article.image.url}}"/>
         </div>
-{% endif %}
+    {% endif %}
+
+    {# 6. Muestra el título principal del artículo en un encabezado h1 #}
     <h1 class="title">{{article.title}}</h1>
+
+    {# 7. Muestra la fecha y hora exacta en que fue creado el artículo #}
     <span class="date">{{article.created_at}}</span>
+
+    {# 8. Muestra el cuerpo o contenido completo del artículo #}
     <p class="content">
+        {# 9. Filtro |safe: Obliga a Django a interpretar el texto como código HTML seguro (fundamental si el contenido viene de un editor enriquecido tipo CKEditor) #}
         {{article.content|safe}}
     </p>
 

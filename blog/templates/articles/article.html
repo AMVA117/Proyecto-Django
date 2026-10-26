@@ -1,33 +1,50 @@
+{# 1. Bucle FOR principal: Recorre la lista de artículos ('articles') pasada desde la vista (views.py) #}
 {% for article in articles %}
         <article class="article-item">
+            
+            {# 2. Condicional IF: Verifica si el artículo tiene una imagen válida (que no sea la cadena 'null' y que su URL tenga al menos 1 caracter de longitud) #}
             {% if article.image != 'null' and article.image.url|length >= 1 %}
                 <div class="image">
+                    {# 3. Muestra la imagen del artículo usando la propiedad .url del campo ImageField #}
                     <img src="{{article.image.url}}"/>
                 </div>
             {% endif %}
+            
             <div class="data">
                 <h2>
+                    {# 4. Etiqueta URL: Genera de forma dinámica la ruta hacia el detalle del artículo usando su ID (equivalente a name='article' en urls.py) #}
                     <a href="{% url 'article' article.id %}">
+                        {# 5. Muestra el título del artículo #}
                         {{article.title}}
                     </a>
                 </h2>
+                
                 <p>
+                    {# 6. Bucle anidado: Recorre todas las categorías asociadas a este artículo (relación Many-to-Many mediante .all) #}
                     {% for category in article.categories.all%}
+                        {# 7. Enlace a la vista de categoría filtrada por ID #}
                         <a href="{% url 'category' category.id %}"> {{category.name}} </a>
 
+                        {# 8. Condicional de formato: Evalúa si el contador del bucle es menor que el total de categorías para decidir si imprime un guion separador '-' #}
                         {%if forloop.counter < article.categories.all|length%}
                         {{'-'}}
                         {%endif%}
                     
                         {% endfor %}
                 </p>
+                
                 <span class="date">
+                    {# 9. Muestra el nombre, apellido del autor (relación ForeignKey con User) y la fecha de creación del artículo #}
                     {{article.user.first_name}} {{article.user.last_name}}
                     {{article.created_at}}</span>
+                
                 <p>
+                    {# 10. Filtro |safe: Le indica a Django que renderice el contenido HTML de forma segura (muy útil si el campo usa editores de texto enriquecido como CKEditor) #}
                     {{article.content|safe}}
                 </p>
             </div>
+            
+            {# 11. Limpiador de flotados (clear float) para diseño CSS #}
             <div class="clearfix"></div>
         </article>
     {% endfor %}
