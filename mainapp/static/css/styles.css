@@ -224,11 +224,14 @@ nav > ul > li:hover > ul > li:hover a {
 .title{
     color: #444;
     letter-spacing: 1px;
-    font-size: 30px;
+    font-size: 16px !important;
     margin-bottom: 10px;
     margin-top: 5px;
 }
 
+h1.title {
+    font-size: 24px !important;
+}
 /*estilo de fecha*/
 .date{
     display: block;
@@ -272,8 +275,8 @@ nav > ul > li:hover > ul > li:hover a {
 
 .article-item h2{
     display: block;
-    font-size: 25px;
-    color: #333333;
+    font-size: 25px !important;
+    color: #333333 !important;
     margin-bottom: 10px;
 }
 /*Estilo de fecha */
